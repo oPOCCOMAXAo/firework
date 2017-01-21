@@ -174,8 +174,9 @@ function arr2rgba(arr) {
 }
 
 function launch() {
-    var t = new Particle(Math.random() * WIDTH, HEIGHT, Math.pow(Math.random() * 1e8, 0.1), RNDColor());
-    t.v = V2.fromPolar(INIT_SPEED, -Math.PI * (Math.random() * 0.5 + 0.25));
+    var corner = Math.random() > 0.5 ? 1 : 0;
+    var t = new Particle(corner * WIDTH, HEIGHT, Math.pow(Math.random(), 25) * 25 + 3, RNDColor());
+    t.v = V2.fromPolar(INIT_SPEED, -Math.PI * (0.5 + (corner * 2 - 1 - Math.random()) * 0.15));
     particles.push(t);
 }
 /**
