@@ -175,8 +175,8 @@ function arr2rgba(arr) {
 
 function launch() {
     var corner = Math.random() > 0.5 ? 1 : 0;
-    var t = new Particle(corner * WIDTH, HEIGHT, Math.pow(Math.random(), 25) * 25 + 3, RNDColor());
-    t.v = V2.fromPolar(INIT_SPEED, -Math.PI * (0.5 + (corner * 2 - 1 - Math.random()) * 0.15));
+    var t = new Particle(corner * WIDTH, HEIGHT, Math.pow(Math.random(), 30) * 25 + 3, RNDColor());
+    t.v = V2.fromPolar(INIT_SPEED, -Math.PI * (0.50 + 0.25 * Math.random() * (corner * 2 - 1)));
     particles.push(t);
 }
 /**
