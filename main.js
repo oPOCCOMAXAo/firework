@@ -19,6 +19,7 @@ var G = new V2(0, 50);
 var INIT_SPEED = 220;
 
 var timer;
+var interval = 0;
 var fades = 0;
 var reqFrame = null;
 /**
@@ -51,7 +52,6 @@ function drawImage() {
         $context.closePath();
         $context.fillStyle = arr2rgba(part.color);
         $context.fill();
-        //$context.putImageData(new ImageData(part.color, 1, 1), part.x, part.y);
     });
     reqFrame = window.requestAnimationFrame(drawImage);
 }
@@ -60,6 +60,9 @@ function onkeypress(e) {
     switch (e.keyCode) {
         case 32:
             launch();
+            break;
+        case 13:
+            startPause();
             break;
     }
     return false;
@@ -74,7 +77,6 @@ function main() {
     $canvas.width = IMG_WIDTH;
     $canvas.height = IMG_HEIGHT;
     $context = $canvas.getContext("2d");
-    //$context.scale(WIDTH / IMG_WIDTH, HEIGHT / IMG_HEIGHT);
     setTimeout(function () {
         $canvas.width = WIDTH;
         $canvas.height = HEIGHT;
@@ -82,6 +84,7 @@ function main() {
     //$context.lineWidth = 1;
     timer = setInterval(step, STEP_TIME);
     reqFrame = window.requestAnimationFrame(drawImage);
+    startPause();
 }
 /**
  * @param x
@@ -183,7 +186,6 @@ function launch() {
  * @param particle {Particle}
  */
 function burst(particle) {
-    debugger;
     if (particle.m <= 2) return;
     var n = particle.m * 5;
     if (n < 5) n = 5;
@@ -211,4 +213,13 @@ function step() {
             burst(particle);
         }
     });
+}
+
+function startPause() {
+    if (interval == 0) {
+        interval = setInterval(launch, 1500);
+    } else {
+        clearInterval(interval);
+        interval = 0;
+    }
 }
